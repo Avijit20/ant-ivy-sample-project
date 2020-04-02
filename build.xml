@@ -26,12 +26,16 @@
     <target name="run">
         <java jar="out/jar/HelloWorld.jar" fork="true"/>
     </target>
+
+    <ivy:publish resolver="artifactory-publish" overwrite="true">
+        <!--
+        Use overwrite="true" if you wish to overwrite existing artifacts
+        and publishivy="false" if you only want to publish artifacts not module descriptors
+        -->
+        <artifacts/>
+    </ivy:publish>
 	
-	<target name="publish" depends="jar">
-		<ivy:publish resolver="publish" overwrite="true" artifactspattern="${jar.dir}/[artifact].[ext]" />
-	</target>
-	
-    <target name="all" depends="clean,resolve, compile, jar, run, publish"/>
+    <target name="all" depends="clean,resolve, compile, jar, run"/>
 
     <target name="resolve">
         <ivy:retrieve />

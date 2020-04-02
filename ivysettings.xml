@@ -3,7 +3,7 @@
   <credentials host="10.10.1.135:8082" realm="Artifactory Realm" username="admin" passwd="Independent12#" />
   <resolvers>
     <chain name="main">
-      <ibiblio name="public" m2compatible="true" root="http://10.10.1.135:8082/artifactory/ivy-local" />
+      <ibiblio name="public" m2compatible="true" root="http://10.10.1.135:8082/artifactory/ivy-dev-local" />
       <url name="publish">
         <!-- You can use  m2compatible="true" instead of specifying your own pattern -->
         <ivy pattern="http://10.10.1.135:8082/artifactory/ivy-local/[organization]/[module]/[revision]/ivy-[revision].xml" />

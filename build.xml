@@ -15,8 +15,8 @@
     </target>
 
     <target name="jar">
-        <mkdir dir="build/jar"/>
-        <jar destfile="build/jar/HelloWorld.jar" basedir="build/classes">
+        <mkdir dir="out/jar"/>
+        <jar destfile="out/jar/HelloWorld.jar" basedir="build/classes">
             <manifest>
                 <attribute name="Main-Class" value="nl.antproject.Main"/>
             </manifest>
@@ -24,7 +24,7 @@
     </target>
 
     <target name="run">
-        <java jar="build/jar/HelloWorld.jar" fork="true"/>
+        <java jar="out/jar/HelloWorld.jar" fork="true"/>
     </target>
 
     <target name="all" depends="clean,resolve, compile, jar, run"/>

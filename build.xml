@@ -1,16 +1,14 @@
-<project name="hello-world-ant" basedir="." default="main" xmlns:ivy="antlib:org.apache.ivy.ant">
+<project default="all" xmlns:ivy="antlib:org.apache.ivy.ant">
 
     <path id="classpath">
         <fileset dir="lib" includes="**/*.jar" />
     </path>
-	
-	<ivy:settings file="./ivysettings.xml" />
-	
+
     <target name="clean">
         <delete dir="build"/>
         <delete dir="lib"/>
     </target>
-
+    <ivy:settings file="./ivysettings.xml" />
     <target name="compile">
         <mkdir dir="build/classes"/>
         <javac srcdir="src" destdir="build/classes" classpathref="classpath"/>
@@ -28,14 +26,10 @@
     <target name="run">
         <java jar="build/jar/HelloWorld.jar" fork="true"/>
     </target>
-
     <target name="publish" depends="jar">
         <ivy:publish resolver="publish" overwrite="true" artifactspattern="build/jar/[artifact].[ext]" />
     </target>
-
-    <target name="clean-build" depends="clean,jar"/>
-
-    <target name="main" depends="clean,run"/>
+    <target name="all" depends="clean,resolve, compile, jar, run, publish"/>
 
     <target name="resolve">
         <ivy:retrieve />

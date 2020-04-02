@@ -19,7 +19,7 @@
         <mkdir dir="build/jar"/>
         <jar destfile="build/jar/HelloWorld.jar" basedir="build/classes">
             <manifest>
-                <attribute name="Main-Class" value="main.java.nl.antproject.Main"/>
+                <attribute name="Main-Class" value="nl.antproject.Main"/>
             </manifest>
         </jar>
     </target>

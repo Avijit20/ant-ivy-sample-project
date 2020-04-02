@@ -26,8 +26,12 @@
     <target name="run">
         <java jar="out/jar/HelloWorld.jar" fork="true"/>
     </target>
-
-    <target name="all" depends="clean,resolve, compile, jar, run"/>
+	
+	<target name="publish" depends="jar">
+		<ivy:publish resolver="publish" overwrite="true" artifactspattern="${jar.dir}/[artifact].[ext]" />
+	</target>
+	
+    <target name="all" depends="clean,resolve, compile, jar, run, publish"/>
 
     <target name="resolve">
         <ivy:retrieve />

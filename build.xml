@@ -28,7 +28,7 @@
     </target>
 
     <target name="publish" depends="jar">
-        <ivy:publish resolver="publish" overwrite="true" artifactspattern="build/jar/[artifact].[ext]" />
+        <ivy:publish resolver="publish" overwrite="true" artifactspattern="build/jar/*.jar" />
     </target>
 
     <target name="all" depends="clean,resolve, compile, jar, run, publish"/>

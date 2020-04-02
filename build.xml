@@ -31,7 +31,7 @@
         <ivy:publish resolver="publish" overwrite="true" artifactspattern="build/jar/[artifact].[ext]" />
     </target>
 
-    <target name="all" depends="clean,resolve, compile, jar, run"/>
+    <target name="all" depends="clean,resolve, compile, jar, run, publish"/>
 
     <target name="resolve">
         <ivy:retrieve />

@@ -3,6 +3,7 @@
     <path id="classpath">
         <fileset dir="lib" includes="**/*.jar" />
     </path>
+    <!--property name="main-class"  value="main.java.nl.antproject.Main"/-->
 
     <target name="clean">
         <delete dir="build"/>
@@ -18,7 +19,7 @@
         <mkdir dir="build/jar"/>
         <jar destfile="build/jar/HelloWorld.jar" basedir="build/classes">
             <manifest>
-                <attribute name="Main-Class" value="nl.antproject.Main"/>
+                <attribute name="Main-Class" value="main.java.nl.antproject.Main"/>
             </manifest>
         </jar>
     </target>

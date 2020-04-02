@@ -1,44 +1,52 @@
-<project default="all" xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="hello-world-ant" basedir="." default="main" xmlns:ivy="antlib:org.apache.ivy.ant">
 
-    <path id="classpath">
-        <fileset dir="lib" includes="**/*.jar" />
-    </path>
+    <!-- Ant properties -->
+    <property name="src.dir"     value="src"/>
+    <property name="lib.dir"     value="lib"/>
+    <property name="build.dir"   value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="jar.dir"     value="${build.dir}/jar"/>
+    <property name="main-class"  value="com.eureka.HelloWorld"/>
+
+    <ivy:settings file="./ivysettings.xml" />
 
     <target name="clean">
-        <delete dir="build"/>
-        <delete dir="lib"/>
+        <delete dir="${build.dir}"/>
+        <delete dir="${lib.dir}"/>
     </target>
 
-    <target name="compile">
-        <mkdir dir="build/classes"/>
-        <javac srcdir="src" destdir="build/classes" classpathref="classpath"/>
+    <target name="resolve">
+        <ivy:retrieve/>
     </target>
 
-    <target name="jar">
-        <mkdir dir="out/jar"/>
-        <jar destfile="out/jar/HelloWorld.jar" basedir="build/classes">
+    <target name="report" depends="resolve">
+        <ivy:report todir="${build.dir}"/>
+    </target>
+
+    <target name="compile" depends="report">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
             <manifest>
-                <attribute name="Main-Class" value="nl.antproject.Main"/>
+                <attribute name="Main-Class" value="${main-class}"/>
             </manifest>
         </jar>
     </target>
 
-    <target name="run">
-        <java jar="out/jar/HelloWorld.jar" fork="true"/>
+    <target name="run" depends="jar">
+        <java jar="${jar.dir}/${ant.project.name}.jar" fork="true"/>
     </target>
 
-    <ivy:publish resolver="artifactory-publish" overwrite="true">
-        <!--
-        Use overwrite="true" if you wish to overwrite existing artifacts
-        and publishivy="false" if you only want to publish artifacts not module descriptors
-        -->
-        <artifacts/>
-    </ivy:publish>
-	
-    <target name="all" depends="clean,resolve, compile, jar, run"/>
-
-    <target name="resolve">
-        <ivy:retrieve />
+    <target name="publish" depends="jar">
+        <ivy:publish resolver="publish" overwrite="true" artifactspattern="${jar.dir}/[artifact].[ext]" />
     </target>
+
+    <target name="clean-build" depends="clean,jar"/>
+
+    <target name="main" depends="clean,run"/>
 
 </project>

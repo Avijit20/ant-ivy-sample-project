@@ -28,7 +28,7 @@
         <java jar="build/jar/HelloWorld.jar" fork="true"/>
     </target>
     <target name="publish" depends="jar">
-        <ivy:publish resolver="publish" pubrevision="1.0">
+        <ivy:publish resolver="publish" pubrevision="1.0" publishivy="false">
             <artifacts pattern="build/jar/[artifact].[ext]"/>
         </ivy:publish>
     </target>
